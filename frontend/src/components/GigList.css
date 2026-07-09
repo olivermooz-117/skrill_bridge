@@ -1,0 +1,25 @@
+.gig-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.gig-list-loading {
+  text-align: center;
+  padding: 3rem;
+  color: #718096;
+}
+
+.gig-list-empty {
+  text-align: center;
+  padding: 3rem;
+  color: #718096;
+  background: white;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .gig-list {
+    grid-template-columns: 1fr;
+  }
+}
