@@ -10,7 +10,7 @@ orders_bp = Blueprint('orders', __name__, url_prefix='/api/orders')
 @orders_bp.route('/', methods=['GET'])
 @jwt_required()
 def get_orders():
-    """GET endpoint for orders: Get user's orders"""
+    """GET endpoint: Get user's orders"""
     current_user_id = get_jwt_identity()
     status = request.args.get('status')
     
@@ -27,7 +27,7 @@ def get_orders():
 @orders_bp.route('/', methods=['POST'])
 @jwt_required()
 def create_order():
-    """POST endpoint 2: Create a new order"""
+    """POST endpoint: Create a new order"""
     data = request.get_json()
     current_user_id = get_jwt_identity()
     
@@ -38,7 +38,7 @@ def create_order():
     if not gig or not gig.is_active:
         return jsonify({'error': 'Gig not found or inactive'}), 404
     
-    # Check if user already has an active order for this gig
+    # Check if user already has a pending order for this gig
     existing_order = Order.query.filter_by(
         gig_id=gig.id,
         client_id=current_user_id,
@@ -66,14 +66,13 @@ def create_order():
 @orders_bp.route('/<int:order_id>', methods=['PUT'])
 @jwt_required()
 def update_order_status(order_id):
-    """PUT endpoint 2: Update order status"""
+    """PUT endpoint: Update order status"""
     current_user_id = get_jwt_identity()
     order = Order.query.get(order_id)
     
     if not order:
         return jsonify({'error': 'Order not found'}), 404
     
-    # Check if user owns the order
     if order.client_id != current_user_id:
         return jsonify({'error': 'Unauthorized'}), 403
     
@@ -95,7 +94,7 @@ def update_order_status(order_id):
 @orders_bp.route('/<int:order_id>', methods=['DELETE'])
 @jwt_required()
 def cancel_order(order_id):
-    """DELETE endpoint 2: Cancel an order"""
+    """DELETE endpoint: Cancel an order"""
     current_user_id = get_jwt_identity()
     order = Order.query.get(order_id)
     
@@ -116,7 +115,7 @@ def cancel_order(order_id):
 @orders_bp.route('/<int:order_id>/review', methods=['POST'])
 @jwt_required()
 def create_review(order_id):
-    """POST endpoint for review creation"""
+    """POST endpoint: Create review for order"""
     current_user_id = get_jwt_identity()
     order = Order.query.get(order_id)
     

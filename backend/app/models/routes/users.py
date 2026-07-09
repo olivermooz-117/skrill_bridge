@@ -16,7 +16,7 @@ def get_user(user_id):
 @users_bp.route('/<int:user_id>', methods=['PUT'])
 @jwt_required()
 def update_user(user_id):
-    """PUT endpoint 2: Update user profile"""
+    """PUT endpoint: Update user profile"""
     current_user_id = get_jwt_identity()
     
     if current_user_id != user_id:
