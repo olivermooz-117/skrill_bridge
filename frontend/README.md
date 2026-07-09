@@ -1,16 +1,42 @@
-# React + Vite
+# SkillBridge - Freelance Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A full-stack freelance marketplace where users can list, browse, and book skill-based services. Freelancers create gigs, clients place orders and leave reviews, with JWT-secured accounts and password reset support.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **User Authentication**: JWT-based authentication with login, registration, and password reset
+- **Gig Management**: Create, read, update, and delete service listings
+- **Order System**: Place orders, track status, and cancel orders
+- **Reviews**: Rate and review completed orders
+- **Search & Filter**: Search gigs by title, tags, and price range
+- **Role-Based Access**: Separate interfaces for freelancers and clients
+- **Responsive Design**: Works on desktop, tablet, and mobile
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
+- Flask 2.3.3
+- SQLAlchemy (ORM)
+- Flask-JWT-Extended (Authentication)
+- PostgreSQL (Production) / SQLite (Development)
+- Flask-CORS
+- Flask-Migrate
 
-## Expanding the Oxlint configuration
+### Frontend
+- React 18.2.0
+- React Router v6
+- Axios (HTTP Client)
+- CSS3 (Custom styling)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 📋 Prerequisites
+
+- Python 3.8+
+- Node.js 16+
+- PostgreSQL (optional, SQLite works for development)
+
+## 🔧 Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/skillbridge.git
+cd skillbridge
