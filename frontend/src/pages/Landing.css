@@ -96,11 +96,6 @@
   background: #f7fafc;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 .section-header {
   display: flex;
   justify-content: space-between;

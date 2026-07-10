@@ -21,11 +21,9 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      // Fetch orders
       const ordersResponse = await api.get('/orders');
       const orders = ordersResponse.data.orders || [];
       
-      // Calculate stats
       const pending = orders.filter(o => o.status === 'pending').length;
       const completed = orders.filter(o => o.status === 'completed').length;
       
@@ -33,7 +31,7 @@ const Dashboard = () => {
         totalOrders: orders.length,
         completedOrders: completed,
         pendingOrders: pending,
-        activeGigs: 0 // Would fetch from API if needed
+        activeGigs: 0
       });
       
       setRecentOrders(orders.slice(0, 5));

@@ -22,7 +22,6 @@ const AuthForm = ({ type, onSubmit, error }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validation
     if (!isLogin && formData.password !== formData.confirmPassword) {
       setValidationError('Passwords do not match');
       return;

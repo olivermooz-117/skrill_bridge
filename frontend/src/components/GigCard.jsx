@@ -11,7 +11,7 @@ const GigCard = ({ gig }) => {
       </div>
       
       <div className="gig-card-body">
-        <p className="gig-description">{gig.description.slice(0, 150)}...</p>
+        <p className="gig-description">{gig.description?.slice(0, 150)}...</p>
         
         <div className="gig-meta">
           <span className="gig-delivery">
@@ -25,8 +25,8 @@ const GigCard = ({ gig }) => {
         </div>
         
         <div className="gig-tags">
-          {gig.tags?.slice(0, 3).map(tag => (
-            <span key={tag.id} className="gig-tag">
+          {gig.tags?.slice(0, 3).map((tag, index) => (
+            <span key={index} className="gig-tag">
               #{tag.name}
             </span>
           ))}

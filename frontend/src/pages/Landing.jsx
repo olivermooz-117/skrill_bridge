@@ -16,7 +16,7 @@ const Landing = () => {
   const fetchFeaturedGigs = async () => {
     try {
       const response = await api.get('/gigs?per_page=6');
-      setFeaturedGigs(response.data.gigs);
+      setFeaturedGigs(response.data.gigs || []);
     } catch (error) {
       console.error('Error fetching gigs:', error);
     } finally {
@@ -26,13 +26,11 @@ const Landing = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Navigate to gigs page with search query
     window.location.href = `/gigs?search=${encodeURIComponent(searchTerm)}`;
   };
 
   return (
     <div className="landing">
-      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-container">
           <h1 className="hero-title">
@@ -71,7 +69,6 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Featured Gigs Section */}
       <section className="featured-section">
         <div className="container">
           <div className="section-header">
@@ -79,15 +76,10 @@ const Landing = () => {
             <Link to="/gigs" className="view-all-link">View All →</Link>
           </div>
           
-          {loading ? (
-            <div className="loading-placeholder">Loading featured gigs...</div>
-          ) : (
-            <GigList gigs={featuredGigs} />
-          )}
+          <GigList gigs={featuredGigs} loading={loading} />
         </div>
       </section>
 
-      {/* Call to Action Section */}
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
