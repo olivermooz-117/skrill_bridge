@@ -19,7 +19,7 @@ def get_orders():
     
     try:
         current_user_id = get_jwt_identity()
-        print(f"📥 Fetching orders for user: {current_user_id}")
+        print(f" Fetching orders for user: {current_user_id}")
         
         # Get all orders for the user
         orders = Order.query.filter_by(client_id=current_user_id).all()
@@ -28,7 +28,7 @@ def get_orders():
             'orders': [order.to_dict() for order in orders]
         }), 200
     except Exception as e:
-        print(f"❌ Error fetching orders: {str(e)}")
+        print(f" Error fetching orders: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 @orders_bp.route('', methods=['POST', 'OPTIONS'])
@@ -43,7 +43,7 @@ def create_order():
     
     try:
         data = request.get_json()
-        print(f"📥 Received order data: {data}")
+        print(f" Received order data: {data}")
         
         if not data:
             return jsonify({'error': 'No data provided'}), 400
@@ -76,7 +76,7 @@ def create_order():
         db.session.add(order)
         db.session.commit()
         
-        print(f"✅ Order created: {order.id}")
+        print(f" Order created: {order.id}")
         
         return jsonify({
             'message': 'Order created successfully',
@@ -84,7 +84,7 @@ def create_order():
         }), 201
     except Exception as e:
         db.session.rollback()
-        print(f"❌ Error creating order: {str(e)}")
+        print(f" Error creating order: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 @orders_bp.route('/<int:order_id>', methods=['PUT', 'OPTIONS'])
@@ -123,7 +123,7 @@ def update_order_status(order_id):
         }), 200
     except Exception as e:
         db.session.rollback()
-        print(f"❌ Error updating order: {str(e)}")
+        print(f" Error updating order: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 @orders_bp.route('/<int:order_id>', methods=['DELETE', 'OPTIONS'])
@@ -155,7 +155,7 @@ def cancel_order(order_id):
         return jsonify({'message': 'Order cancelled successfully'}), 200
     except Exception as e:
         db.session.rollback()
-        print(f"❌ Error cancelling order: {str(e)}")
+        print(f" Error cancelling order: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 @orders_bp.route('/<int:order_id>/review', methods=['POST', 'OPTIONS'])
@@ -208,5 +208,5 @@ def create_review(order_id):
         }), 201
     except Exception as e:
         db.session.rollback()
-        print(f"❌ Error creating review: {str(e)}")
+        print(f" Error creating review: {str(e)}")
         return jsonify({'error': str(e)}), 500

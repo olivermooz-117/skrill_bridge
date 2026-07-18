@@ -94,14 +94,14 @@ const CreateGig = () => {
       };
 
       // Log everything for debugging
-      console.log('📤 Sending gig data:', JSON.stringify(gigData, null, 2));
-      console.log('🔑 Token:', localStorage.getItem('access_token')?.substring(0, 50) + '...');
+      console.log(' Sending gig data:', JSON.stringify(gigData, null, 2));
+      console.log(' Token:', localStorage.getItem('access_token')?.substring(0, 50) + '...');
       
       setDebugInfo(`Sending: ${JSON.stringify(gigData)}`);
 
       const response = await api.post('/gigs', gigData);
       
-      console.log('✅ Gig created:', response.data);
+      console.log(' Gig created:', response.data);
       setSuccess('Gig created successfully! Redirecting...');
       
       setTimeout(() => {
@@ -109,7 +109,7 @@ const CreateGig = () => {
       }, 1500);
 
     } catch (error) {
-      console.error('❌ Error creating gig:', error);
+      console.error(' Error creating gig:', error);
       
       // Detailed error logging
       let errorMessage = 'Failed to create gig';
@@ -119,8 +119,8 @@ const CreateGig = () => {
         const status = error.response.status;
         const data = error.response.data;
         
-        console.log('🔴 Status:', status);
-        console.log('🔴 Response data:', data);
+        console.log(' Status:', status);
+        console.log(' Response data:', data);
         
         if (status === 401) {
           errorMessage = 'Please login again to create a gig';

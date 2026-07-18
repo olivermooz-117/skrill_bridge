@@ -18,7 +18,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-brand">
-          <span className="brand-icon">🚀</span>
+          <span className="brand-icon"></span>
           SkillBridge
         </Link>
 
@@ -26,7 +26,7 @@ const Navbar = () => {
           className="navbar-toggle" 
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          ☰
+          
         </button>
 
         <div className={`navbar-links ${menuOpen ? 'active' : ''}`}>

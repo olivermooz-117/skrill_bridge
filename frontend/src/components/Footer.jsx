@@ -6,10 +6,10 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3 className="footer-brand">🚀 SkillBridge</h3>
+          <h3 className="footer-brand"> SkillBridge</h3>
           <p className="footer-description">
             Connecting freelancers with clients worldwide.
-            Built with ❤️ for the gig economy.
+            Built with  for the gig economy.
           </p>
         </div>
         

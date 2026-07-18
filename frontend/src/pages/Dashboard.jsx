@@ -55,14 +55,14 @@ const Dashboard = () => {
 
       <div className="dashboard-stats">
         <div className="stat-card">
-          <div className="stat-icon">📦</div>
+          <div className="stat-icon"></div>
           <div className="stat-info">
             <span className="stat-number">{stats.totalOrders}</span>
             <span className="stat-label">Total Orders</span>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">✅</div>
+          <div className="stat-icon"></div>
           <div className="stat-info">
             <span className="stat-number">{stats.completedOrders}</span>
             <span className="stat-label">Completed</span>
@@ -76,7 +76,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">💼</div>
+          <div className="stat-icon"></div>
           <div className="stat-info">
             <span className="stat-number">{stats.activeGigs}</span>
             <span className="stat-label">Active Gigs</span>

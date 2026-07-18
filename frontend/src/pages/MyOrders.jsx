@@ -116,7 +116,7 @@ const MyOrders = () => {
                     <span>Ordered: {new Date(order.created_at).toLocaleDateString()}</span>
                     {order.review && (
                       <span className="order-review">
-                        ⭐ {order.review.rating}/5 - {order.review.comment}
+                         {order.review.rating}/5 - {order.review.comment}
                       </span>
                     )}
                   </div>

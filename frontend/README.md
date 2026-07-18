@@ -2,7 +2,7 @@
 
 A full-stack freelance marketplace where users can list, browse, and book skill-based services. Freelancers create gigs, clients place orders and leave reviews, with JWT-secured accounts and password reset support.
 
-## 🚀 Features
+##  Features
 
 - **User Authentication**: JWT-based authentication with login, registration, and password reset
 - **Gig Management**: Create, read, update, and delete service listings
@@ -12,7 +12,7 @@ A full-stack freelance marketplace where users can list, browse, and book skill-
 - **Role-Based Access**: Separate interfaces for freelancers and clients
 - **Responsive Design**: Works on desktop, tablet, and mobile
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Backend
 - Flask 2.3.3
@@ -28,13 +28,13 @@ A full-stack freelance marketplace where users can list, browse, and book skill-
 - Axios (HTTP Client)
 - CSS3 (Custom styling)
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - Python 3.8+
 - Node.js 16+
 - PostgreSQL (optional, SQLite works for development)
 
-## 🔧 Installation
+##  Installation
 
 ### 1. Clone the Repository
 ```bash

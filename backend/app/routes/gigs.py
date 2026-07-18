@@ -60,7 +60,7 @@ def create_gig():
     
     try:
         data = request.get_json()
-        print(f"📥 Received gig data: {data}")
+        print(f" Received gig data: {data}")
         
         if not data:
             return jsonify({'error': 'No data provided'}), 400
@@ -68,13 +68,13 @@ def create_gig():
         # Get user ID from JWT
         try:
             current_user_id = get_jwt_identity()
-            print(f"👤 User ID from token: {current_user_id}")
+            print(f" User ID from token: {current_user_id}")
             
             # Convert to int if it's a string
             if isinstance(current_user_id, str):
                 current_user_id = int(current_user_id)
         except Exception as e:
-            print(f"❌ Error getting user ID: {str(e)}")
+            print(f" Error getting user ID: {str(e)}")
             return jsonify({'error': 'Invalid authentication'}), 401
         
         user = User.query.get(current_user_id)
@@ -131,7 +131,7 @@ def create_gig():
         
         db.session.add(gig)
         db.session.commit()
-        print(f"✅ Gig created successfully: {gig.id}")
+        print(f" Gig created successfully: {gig.id}")
         
         return jsonify({
             'message': 'Gig created successfully',
@@ -139,7 +139,7 @@ def create_gig():
         }), 201
     except Exception as e:
         db.session.rollback()
-        print(f"❌ Error creating gig: {str(e)}")
+        print(f" Error creating gig: {str(e)}")
         import traceback
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500

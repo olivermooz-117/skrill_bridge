@@ -69,15 +69,15 @@ const GigDetail = () => {
 
             <div className="gig-detail-meta">
               <span className="meta-item">
-                📦 {gig.delivery_days} days delivery
+                 {gig.delivery_days} days delivery
               </span>
               {gig.average_rating && (
                 <span className="meta-item">
-                  ⭐ {gig.average_rating} average rating
+                   {gig.average_rating} average rating
                 </span>
               )}
               <span className="meta-item">
-                👤 {gig.freelancer?.name || 'Unknown'}
+                 {gig.freelancer?.name || 'Unknown'}
               </span>
             </div>
 

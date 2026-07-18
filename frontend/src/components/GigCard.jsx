@@ -15,11 +15,11 @@ const GigCard = ({ gig }) => {
         
         <div className="gig-meta">
           <span className="gig-delivery">
-            📦 {gig.delivery_days} days
+             {gig.delivery_days} days
           </span>
           {gig.average_rating && (
             <span className="gig-rating">
-              ⭐ {gig.average_rating}
+               {gig.average_rating}
             </span>
           )}
         </div>
