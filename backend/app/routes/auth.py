@@ -8,26 +8,20 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
-    # Get JSON data
     data = request.get_json()
     
-    # Check if data exists
     if not data:
         return jsonify({'error': 'No JSON data provided'}), 400
     
-    # Validate required fields
     if not all(k in data for k in ('name', 'email', 'password', 'role')):
         return jsonify({'error': 'Missing required fields'}), 400
     
-    # Validate email
     if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', data['email']):
         return jsonify({'error': 'Invalid email format'}), 400
     
-    # Check if user exists
     if User.query.filter_by(email=data['email']).first():
         return jsonify({'error': 'Email already registered'}), 409
     
-    # Create user
     user = User(
         name=data['name'],
         email=data['email'],
@@ -39,7 +33,8 @@ def register():
     db.session.add(user)
     db.session.commit()
     
-    access_token = create_access_token(identity=user.id)
+    # Convert id to string for JWT
+    access_token = create_access_token(identity=str(user.id))
     
     return jsonify({
         'message': 'User registered successfully',
@@ -65,7 +60,8 @@ def login():
     if not user.is_active:
         return jsonify({'error': 'Account is deactivated'}), 403
     
-    access_token = create_access_token(identity=user.id)
+    # Convert id to string for JWT
+    access_token = create_access_token(identity=str(user.id))
     
     return jsonify({
         'message': 'Login successful',
@@ -77,10 +73,18 @@ def login():
 @jwt_required()
 def get_current_user():
     current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
+    # Convert string back to int for database query
+    user = User.query.get(int(current_user_id))
     if not user:
         return jsonify({'error': 'User not found'}), 404
     return jsonify(user.to_dict()), 200
+
+@auth_bp.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    current_user_id = get_jwt_identity()
+    new_access_token = create_access_token(identity=str(current_user_id))
+    return jsonify({'access_token': new_access_token}), 200
 
 @auth_bp.route('/password-reset/request', methods=['POST'])
 def request_password_reset():
@@ -98,7 +102,7 @@ def request_password_reset():
     if not user:
         return jsonify({'error': 'Email not found'}), 404
     
-    reset_token = create_access_token(identity=user.id, expires_delta=False)
+    reset_token = create_access_token(identity=str(user.id), expires_delta=False)
     reset_link = f"http://localhost:5173/password-reset/confirm?token={reset_token}"
     
     return jsonify({
@@ -126,7 +130,7 @@ def confirm_password_reset():
         from flask_jwt_extended import decode_token
         decoded = decode_token(token)
         user_id = decoded['sub']
-        user = User.query.get(user_id)
+        user = User.query.get(int(user_id))
         
         if not user:
             return jsonify({'error': 'Invalid token'}), 400

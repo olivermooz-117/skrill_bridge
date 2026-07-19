@@ -23,7 +23,7 @@ RESTful API for the SkillBridge freelance marketplace platform.
 - Python 3.8+
 - pip
 
-## 🔧 Installation
+##  Installation
 
 ### 1. Clone the repository
 ```bash

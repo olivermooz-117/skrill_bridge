@@ -1,6 +1,8 @@
 from app.extensions import db
 from datetime import datetime
+from app.models.order import Order  # IMPORT Order
 
+# Many-to-Many relationship table
 gig_tags = db.Table('gig_tags',
     db.Column('gig_id', db.Integer, db.ForeignKey('gigs.id'), primary_key=True),
     db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'), primary_key=True)

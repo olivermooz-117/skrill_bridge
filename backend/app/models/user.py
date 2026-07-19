@@ -10,7 +10,7 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    role = db.Column(db.String(20), nullable=False, default='client')  # 'freelancer' or 'client'
+    role = db.Column(db.String(20), nullable=False, default='client')
     bio = db.Column(db.Text)
     profile_picture = db.Column(db.String(255))
     is_active = db.Column(db.Boolean, default=True)
@@ -20,7 +20,7 @@ class User(db.Model):
     # Relationships
     gigs = db.relationship('Gig', backref='freelancer', lazy=True, foreign_keys='Gig.user_id')
     orders_as_client = db.relationship('Order', backref='client', lazy=True, foreign_keys='Order.client_id')
-    reviews = db.relationship('Review', backref='user', lazy=True)
+    reviews = db.relationship('Review', backref='reviewer', lazy=True, foreign_keys='Review.user_id')
     
     def set_password(self, password):
         self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')

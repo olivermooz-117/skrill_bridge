@@ -7,7 +7,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     gig_id = db.Column(db.Integer, db.ForeignKey('gigs.id'), nullable=False)
     client_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    status = db.Column(db.String(20), nullable=False, default='pending')  # pending, in_progress, completed, cancelled
+    status = db.Column(db.String(20), nullable=False, default='pending')
     total_price = db.Column(db.Float, nullable=False)
     requirements = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
