@@ -1,7 +1,6 @@
 from app.extensions import db
 from datetime import datetime
 
-# Many-to-Many relationship table
 gig_tags = db.Table('gig_tags',
     db.Column('gig_id', db.Integer, db.ForeignKey('gigs.id'), primary_key=True),
     db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'), primary_key=True)
@@ -21,26 +20,25 @@ class Gig(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    orders = db.relationship('Order', backref='gig', lazy=True, foreign_keys='Order.gig_id')
+    orders = db.relationship('Order', backref='gig', lazy=True)
     tags = db.relationship('Tag', secondary=gig_tags, lazy='subquery', backref=db.backref('gigs', lazy=True))
     
     def to_dict(self):
         return {
             'id': self.id,
-            'title': str(self.title) if self.title else '',
-            'description': str(self.description) if self.description else '',
-            'price': float(self.price) if self.price else 0,
-            'delivery_days': int(self.delivery_days) if self.delivery_days else 0,
+            'title': self.title,
+            'description': self.description,
+            'price': self.price,
+            'delivery_days': self.delivery_days,
             'user_id': self.user_id,
             'freelancer': self.freelancer.to_dict() if self.freelancer else None,
-            'tags': [tag.to_dict() for tag in self.tags] if self.tags else [],
-            'is_active': bool(self.is_active),
+            'tags': [tag.to_dict() for tag in self.tags],
+            'is_active': self.is_active,
             'created_at': self.created_at.isoformat() if self.created_at else None,
-            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+            'average_rating': self.get_average_rating()
         }
     
     def get_average_rating(self):
-        from app.models.order import Order
         orders = Order.query.filter_by(gig_id=self.id, status='completed').all()
         if not orders:
             return None

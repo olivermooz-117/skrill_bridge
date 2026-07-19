@@ -7,16 +7,14 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     gig_id = db.Column(db.Integer, db.ForeignKey('gigs.id'), nullable=False)
     client_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    status = db.Column(db.String(20), nullable=False, default='pending')
+    status = db.Column(db.String(20), nullable=False, default='pending')  # pending, in_progress, completed, cancelled
     total_price = db.Column(db.Float, nullable=False)
     requirements = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    review = db.relationship('Review', backref='order', uselist=False, lazy=True, foreign_keys='Review.order_id')
-    gig = db.relationship('Gig', backref='orders', lazy=True, foreign_keys='Gig.id')
-    client = db.relationship('User', backref='orders', lazy=True, foreign_keys='User.id')
+    review = db.relationship('Review', backref='order', uselist=False, lazy=True)
     
     def to_dict(self):
         return {
