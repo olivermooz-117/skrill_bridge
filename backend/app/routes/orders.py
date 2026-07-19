@@ -4,6 +4,7 @@ from app.models.order import Order
 from app.models.gig import Gig
 from app.models.review import Review
 from app.extensions import db
+from app.utils.decorators import role_required
 
 orders_bp = Blueprint('orders', __name__, url_prefix='/api/orders')
 
@@ -38,7 +39,6 @@ def create_order():
     if not gig or not gig.is_active:
         return jsonify({'error': 'Gig not found or inactive'}), 404
     
-    # Check if user already has an active order for this gig
     existing_order = Order.query.filter_by(
         gig_id=gig.id,
         client_id=current_user_id,
@@ -73,7 +73,6 @@ def update_order_status(order_id):
     if not order:
         return jsonify({'error': 'Order not found'}), 404
     
-    # Check if user owns the order
     if order.client_id != current_user_id:
         return jsonify({'error': 'Unauthorized'}), 403
     
