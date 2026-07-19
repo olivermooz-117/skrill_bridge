@@ -15,6 +15,8 @@ class Order(db.Model):
     
     # Relationships
     review = db.relationship('Review', backref='order', uselist=False, lazy=True, foreign_keys='Review.order_id')
+    gig = db.relationship('Gig', backref='orders', lazy=True, foreign_keys='Gig.id')
+    client = db.relationship('User', backref='orders', lazy=True, foreign_keys='User.id')
     
     def to_dict(self):
         return {

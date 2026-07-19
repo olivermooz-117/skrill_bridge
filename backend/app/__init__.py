@@ -6,6 +6,11 @@ from app.routes.auth import auth_bp
 from app.routes.gigs import gigs_bp
 from app.routes.orders import orders_bp
 from app.routes.users import users_bp
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def create_app():
     app = Flask(__name__)
@@ -17,7 +22,7 @@ def create_app():
     migrate.init_app(app, db)
     jwt.init_app(app)
     
-    # Configure CORS properly - Allow all origins for development
+    # CORS - Allow all origins for development
     CORS(app, 
          resources={r"/*": {
              "origins": "*",
@@ -36,6 +41,20 @@ def create_app():
     
     @app.route('/health')
     def health():
-        return jsonify({'status': 'healthy'}), 200
+        try:
+            # Check database connection
+            from sqlalchemy import inspect
+            inspector = inspect(db.engine)
+            tables = inspector.get_table_names()
+            db_status = "connected"
+        except Exception as e:
+            db_status = f"error: {str(e)}"
+            tables = []
+        
+        return jsonify({
+            'status': 'healthy',
+            'database': db_status,
+            'tables': tables
+        }), 200
     
     return app
